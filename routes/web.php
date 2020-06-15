@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('Front')->group(function () {
+    Route::get('/', 'FormController@index')->name('form.index');
+    Route::get('/konfirmasi/{kode}', 'FormController@konfirmasi')->name('form.konfirmasi');
+    Route::get('/detail/{kode}', 'FormController@show')->name('form.show');
+    Route::post('/submit', 'FormController@store')->name('form.submit');
 });
+
+Auth::routes(['register' => false]);
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin'
+    ], function() {
+        Route::get('/', 'AdminController@index')->name('admin');
+        Route::delete('registrant/{id}', 'Admincontroller@destroy')->name('registrant.destroy');
+
+});
+
+Route::get('/logout', 'LogoutController@logout')->name('logout');
