@@ -18,30 +18,31 @@ class SubmitFormService
 
     public function storeDocuments(SubmitRegistration $request)
     {
+
         // Scan KTP
         $ktpPath = $request->pendaftar['dokumen']['scan_ktp']->store('ktp','public');
 
         // Sertifikat MUBK
-        $sertifMubkPath = $request->pendaftar['dokumen']['sertifikat_mubk']->store('sertifikat_mubk','public');
-
-        // Surat Rekomendasi
-        $rekomendasiPath = $request->pendaftar['dokumen']['rekomendasi']->store('rekomendasi', 'public');
+        if(array_key_exists('sertifikat_mubk',$request->pendaftar['dokumen'])) {
+            $sertifMubkPath = $request->pendaftar['dokumen']['sertifikat_mubk']->store('sertifikat_mubk','public');    
+        }
 
         // Sertifikat lain-lain
-        $sertifPath = $request->pendaftar['dokumen']['sertifikat_lain']->store('misc','public');
-
+        if (array_key_exists('sertifikat_lain',$request->pendaftar['dokumen'])) {
+            $sertifPath = $request->pendaftar['dokumen']['sertifikat_lain']->store('misc','public');   
+        }
+        
         return [
             'ktpPath' => $ktpPath,
-            'sertifMubkPath' => $sertifMubkPath,
-            'rekomendasiPath' => $rekomendasiPath,
-            'sertifPath' => $sertifPath
+            'sertifMubkPath' => $sertifMubkPath ?? '',
+            'sertifPath' => $sertifPath ?? ''
         ];
 
     }
 
     private function formatTanggalLahir($tanggalLahir)
     {
-        $date = Carbon::createFromFormat('m/d/Y', $tanggalLahir);
+        $date = Carbon::createFromFormat('Y-m-d', $tanggalLahir);
 
         $tanggalLahirFormatted = $date->format('Y-m-d');
 
@@ -55,6 +56,9 @@ class SubmitFormService
         $random_char = Str::random(10);
 
         $regisrant = Registrant::create(['random_char' => $random_char]);
+        
+        // Store dokumen
+        $dokumen = $this->storeDocuments($request);
 
         // Write data diri to db
         $dataDiri = $this->validatedData['data_diri'];
@@ -88,27 +92,26 @@ class SubmitFormService
         $regisrant->statement()->create($statement);
 
         // write dokumen to db
-        $dokumen = $this->storeDocuments($request);
 
         $scanKTP = $regisrant->documents()->create([
             'tipe' => 1,
             'path' => $dokumen['ktpPath']
         ]);
 
-        $sertifMubk = $regisrant->documents()->create([
+        if($dokumen['sertifMubkPath']) {
+            $sertifMubk = $regisrant->documents()->create([
             'tipe' => 2,
             'path' => $dokumen['sertifMubkPath']
-        ]);
+        ]);    
+        }
+        
 
-        $rekomendasi = $regisrant->documents()->create([
-            'tipe' => 3,
-            'path' => $dokumen['rekomendasiPath']
-        ]);
-
-        $sertifLain = $regisrant->documents()->create([
-            'tipe' => 4,
-            'path' => $dokumen['sertifPath']
-        ]);
+        if ($dokumen['sertifPath']){
+            $sertifLain = $regisrant->documents()->create([
+                'tipe' => 4,
+                'path' => $dokumen['sertifPath']
+            ]);
+        }
 
         return $regisrant;
     }

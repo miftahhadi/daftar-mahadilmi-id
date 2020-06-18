@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://daftar.mahadilmi.id'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY','axqmai3gonw7ti8ycpmacttxdebqsysl'),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 

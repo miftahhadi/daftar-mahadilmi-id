@@ -81,7 +81,7 @@ class SubmitRegistration extends FormRequest
             'pendaftar.ngaji.hafalan' => 'required',
             'pendaftar.dokumen.scan_ktp' => ['required', 'file', 'mimetypes:application/pdf,image/jpeg,image/png','max:2048'],
             'pendaftar.dokumen.sertifikat_mubk' => ['file', 'mimetypes:application/pdf,image/jpeg,image/png','max:2048'],
-            'pendaftar.dokumen.rekomendasi' => ['required', 'file', 'mimetypes:application/pdf,image/jpeg,image/png','max:2048'],
+            'pendaftar.dokumen.rekomendasi' => ['file', 'mimetypes:application/pdf,image/jpeg,image/png','max:2048'],
             'pendaftar.dokumen.sertifikat_lain' => ['file', 'mimetypes:application/pdf,image/jpeg,image/png','max:2048'],
             'pendaftar.pernyataan.data_benar' => [
                 'required',
@@ -140,7 +140,6 @@ class SubmitRegistration extends FormRequest
             'pendaftar.dokumen.scan_ktp.max' => 'Ukuran file yang diizinkan maksimal 2MB',
             'pendaftar.dokumen.sertifikat_mubk.mimetypes' => 'File yang diizinkan hanya yang berformat JPEG atau PDF',
             'pendaftar.dokumen.sertifikat_mubk.max' => 'Ukuran file yang diizinkan maksimal 2MB',
-            'pendaftar.dokumen.rekomendasi.required' => 'Mohon unggah surat rekomendasi',
             'pendaftar.dokumen.rekomendasi.mimetypes' => 'File yang diizinkan hanya yang berformat JPEG atau PDF',
             'pendaftar.dokumen.rekomendasi.max' => 'Ukuran file yang diizinkan maksimal 2MB',
             'pendaftar.dokumen.sertifikat_lain.mimetypes' => 'File yang diizinkan hanya yang berformat JPEG atau PDF',

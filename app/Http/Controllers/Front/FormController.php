@@ -20,6 +20,7 @@ class FormController extends Controller
     public function store(SubmitRegistration $request)
     {
 
+
         $data = $request->validated();
 
         $submitForm = new SubmitFormService($data['pendaftar']);

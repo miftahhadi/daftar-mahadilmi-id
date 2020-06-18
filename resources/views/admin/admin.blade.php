@@ -111,17 +111,17 @@
                     </thead>
                     <tbody>
 
-                    @forelse($registrants as $pendaftar)
+                    @forelse($personals as $pendaftar)
                         <tr>
                             <th scope="row">
-                                {{ $pendaftar->random_char }}
+                                {{ $pendaftar->registrant->random_char }}
                             </th>
-                            <td>{{ $pendaftar->personal->nama }}</td>
-                            <td>{{ $pendaftar->personal->jenis_kelamin  }}</td>
-                            <td>{{ $pendaftar->created_at }}</td>
+                            <td>{{ $pendaftar->nama }}</td>
+                            <td>{{ $pendaftar->jenis_kelamin  }}</td>
+                            <td>{{ $pendaftar->registrant->created_at }}</td>
                             <td>
                                 <div class="btn-list ml-auto">
-                                    <a href="{{ route('form.show', [ 'kode' => $pendaftar->random_char ]) }}" class="btn btn-primary btn-sm" target="_blank">Lihat Data</a>
+                                    <a href="{{ route('form.show', [ 'kode' => $pendaftar->registrant->random_char ]) }}" class="btn btn-primary btn-sm" target="_blank">Lihat Data</a>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapusData">Hapus</button>
                                 </div>                            
                             </td>

@@ -27,7 +27,7 @@
                         <p class="lead mb-4 px-sm-5">
                             Terima kasih {{ $registrant->personal->nama }}, data pendaftaran Anda sudah tersimpan di database.
                         </p>
-                        <p>Kode pendaftaran Anda adalah: <strong>{{ $registrant->random_char }}</strong></p>
+                        <p>Kode pendaftaran Anda adalah: <strong>{{ $registrant->random_char }}</strong>. Catatlah kode pendaftaran Anda.</p>
                         <p>Anda dapat melihat rincian pendaftaran Anda melalui tautan:</p>
                         <p><a href="{{ route('form.show', [ 'kode' => $registrant->random_char ]) }}">{{ route('form.show', [ 'kode' => $registrant->random_char ]) }}</a></p>
                         <a class="btn btn-primary animate-up-2 mt-4" href="{{ route('form.index') }}">Kembali ke Halaman Depan</a>

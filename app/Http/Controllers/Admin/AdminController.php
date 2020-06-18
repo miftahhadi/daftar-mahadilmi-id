@@ -17,13 +17,13 @@ class AdminController extends Controller
     public function index()
     {
 
-        // if (auth()->user()->roles() == 'Admin Akhawat') {
-        //     $registrants = Registrant::where('personal.jenis_kelamin', 'Perempuan')->get();
-        // } elseif (auth()->user()->roles() == 'Admin Ikhwan') {
-        //     $registrants = Registrant::where('personal.jenis_kelamin', 'Perempuan')->get();
-        // } else {
-        //     $registrants = Registrant::all();
-        // }
+         if (auth()->user()->roles() == 'Admin Akhawat') {
+             $personals = Personal::where('personaljenis_kelamin', 'Perempuan')->get();
+         } elseif (auth()->user()->roles() == 'Admin Ikhwan') {
+             $personals = Personal::where('personal.jenis_kelamin', 'Perempuan')->get();
+         } else {
+             $personals = Personal::all();
+         }
      
         // if (request('pendaftar')) {
         //     if (request('pendaftar') == 'akhawat') {
@@ -37,6 +37,6 @@ class AdminController extends Controller
 
         $registrants = Registrant::all();
 
-        return view('admin.admin', compact('registrants', 'role'));
+        return view('admin.admin', compact('personals'));
     }
 }

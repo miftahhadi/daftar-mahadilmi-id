@@ -88,11 +88,11 @@
                                     <label for="pendaftar[data_diri][tanggal_lahir]">Tanggal lahir</label>
                                     <div class="@error('pendaftar.data_diri.tanggal_lahir')  @else input-group input-group-merge input-group-alternative @enderror">
 
-                                        <div class="input-group date" data-provide="datepicker">
-                                            <input type="datetime-local" class="form-control @error('pendaftar.data_diri.tanggal_lahir') is-invalid @enderror" placeholder="Tanggal lahir" name="pendaftar[data_diri][tanggal_lahir]" id="pendaftar[data_diri][tanggal_lahir]" value="{{ old('pendaftar.data_diri.tanggal_lahir') ?? '' }}" required>
-                                            <div class="input-group-addon">
+                                        <div class="input-group date">
+                                            <input type="date" class="form-control @error('pendaftar.data_diri.tanggal_lahir') is-invalid @enderror" placeholder="Tanggal lahir" name="pendaftar[data_diri][tanggal_lahir]" id="pendaftar[data_diri][tanggal_lahir]" value="{{ old('pendaftar.data_diri.tanggal_lahir') ?? '' }}" required>
+                                            <!--<div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
-                                            </div>
+                                            </div>-->
 
                                         </div>
                                     
@@ -700,7 +700,7 @@
 
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                
                                 <h4>Surat Rekomendasi</h4>
                                 <div class="custom-file">
@@ -712,7 +712,7 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
 
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                
