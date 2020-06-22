@@ -19,6 +19,7 @@
                 Form Pendaftaran
               </a>
             </li>
+            @if (auth()->user()->roles->last()->role == 'Super Admin')
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Pendaftar
@@ -27,17 +28,18 @@
 
                 <!-- List group -->
                 <div class="list-group list-group-flush">
-                  <a href="{{ route('admin') }}?pendaftar=ikhwan" class="list-group-item list-group-item-action">
+                  <a href="{{ route('admin') }}?ikhwan" class="list-group-item list-group-item-action">
                     Pendaftar Ikhwan
                   </a>
-                  <a href="{{ route('admin') }}?pendaftar=ikhwan" class="list-group-item list-group-item-action">
+                  <a href="{{ route('admin') }}?akhawat" class="list-group-item list-group-item-action">
                     Pendaftar Akhawat
                   </a>                    
                 </div>
                 <!-- View all -->
-                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">Semua Pendaftar</a>
+                <a href="{{ route('admin') }}" class="dropdown-item text-center text-primary font-weight-bold py-3">Semua Pendaftar</a>
               </div>
             </li>
+            @endif
           </ul>
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
             <li class="nav-item dropdown">
@@ -102,6 +104,7 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Kode Pendaftaran</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Jenis Kelamin</th>
@@ -113,6 +116,7 @@
 
                     @forelse($personals as $pendaftar)
                         <tr>
+                            <td>{{ ++$urutan }}</td>
                             <th scope="row">
                                 {{ $pendaftar->registrant->random_char }}
                             </th>
@@ -136,6 +140,8 @@
                 </table>
             </div>
         </div>        
+        
+        {{ $personals->links() }}
         
         <!-- Footer -->
         <footer class="footer pt-0">

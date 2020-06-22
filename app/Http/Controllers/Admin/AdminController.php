@@ -17,26 +17,31 @@ class AdminController extends Controller
     public function index()
     {
 
-         if (auth()->user()->roles() == 'Admin Akhawat') {
-             $personals = Personal::where('personaljenis_kelamin', 'Perempuan')->get();
-         } elseif (auth()->user()->roles() == 'Admin Ikhwan') {
-             $personals = Personal::where('personal.jenis_kelamin', 'Perempuan')->get();
+        $admin = auth()->user();
+        
+        // Variabel-variabel untuk pagination
+        $load = 10;
+        
+        $page = (int)request('page') == 0 || (int)request('page') == 1 ? 1 : (int)request('page');
+        
+        $urutan = ($page - 1) * $load;
+        // End variabel pagination
+        
+         if ($admin->isAdminAkhawat()) {
+             $personals = Personal::where('jenis_kelamin', 'Perempuan')->paginate($load);
+         } elseif ($admin->isAdminIkhwan()) {
+             $personals = Personal::where('jenis_kelamin', 'Laki-laki')->paginate($load);
          } else {
-             $personals = Personal::all();
+             $personals = Personal::paginate($load);
          }
-     
-        // if (request('pendaftar')) {
-        //     if (request('pendaftar') == 'akhawat') {
-        //         $registrants = Registrant::where('personal.jenis_kelamin', 'Perempuan')->get();
-        //     } elseif (request('pendaftar') == 'ikhwan') {
-        //         $registrants = Registrant::where('personal.jenis_kelamin', 'Laki-laki')->get();
-        //     }
-        // } else {
-            
-        // }
+               
+        if (request('pendaftar') && request('pendaftar') == 'akhawat') {
+             $personals = Personal::where('jenis_kelamin', 'Perempuan')->paginate($load);
+        } elseif (request('pendaftar') && request('pendaftar') == 'ikhwan') {
+             $personals = Personal::where('jenis_kelamin', 'Laki-laki')->paginate($load);
+        }
 
-        $registrants = Registrant::all();
 
-        return view('admin.admin', compact('personals'));
+        return view('admin.admin', compact('personals', 'urutan'));
     }
 }
