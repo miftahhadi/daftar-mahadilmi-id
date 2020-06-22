@@ -41,4 +41,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    
+    public function isAdminAkhawat() {
+        return $this->roles->last()->role == 'Admin Akhawat';
+    }
+    
+    public function isAdminIkhwan() {
+        return $this->roles->last()->role == 'Admin Ikhwan';
+    }
+    
+    public function isSuperAdmin() {
+        return $this->roles->last()->role == 'Super Admin';
+    }
 }
