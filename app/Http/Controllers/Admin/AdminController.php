@@ -20,7 +20,7 @@ class AdminController extends Controller
         $admin = auth()->user();
         
         // Variabel-variabel untuk pagination
-        $load = 10;
+        $load = request('load') ?? 10;
         
         $page = (int)request('page') == 0 || (int)request('page') == 1 ? 1 : (int)request('page');
         
@@ -42,6 +42,6 @@ class AdminController extends Controller
         }
 
 
-        return view('admin.admin', compact('personals', 'urutan'));
+        return view('admin.admin', compact('personals', 'urutan', 'load'));
     }
 }
