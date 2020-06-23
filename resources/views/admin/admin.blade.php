@@ -141,7 +141,7 @@
             </div>
         </div>        
         
-        {{ $personals->links() }}
+        {{ $personals->appends(['load' => $load])->links() }}
         
         <!-- Footer -->
         <footer class="footer pt-0">
