@@ -28,10 +28,10 @@
 
                 <!-- List group -->
                 <div class="list-group list-group-flush">
-                  <a href="{{ route('admin') }}?ikhwan" class="list-group-item list-group-item-action">
+                  <a href="{{ route('admin') }}?pendaftar=Laki-laki" class="list-group-item list-group-item-action">
                     Pendaftar Ikhwan
                   </a>
-                  <a href="{{ route('admin') }}?akhawat" class="list-group-item list-group-item-action">
+                  <a href="{{ route('admin') }}?pendaftar=Perempuan" class="list-group-item list-group-item-action">
                     Pendaftar Akhawat
                   </a>                    
                 </div>
@@ -66,7 +66,7 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-                <img src="/assets/img/brand/logo-white.png" alt="" class="mb-6">
+                <a href="{{ route('admin') }}"><img src="/assets/img/brand/logo-white.png" alt="" class="mb-6"></a>
               <h2 class="h2 text-white d-inline-block mb-0">Portal Pendaftaran Ma'had al-'Ilmi</h6>
               <!--<nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -90,13 +90,52 @@
     <div class="container mt--6">
         <div class="card">
             <div class="card-header border-0">
-                <div class="row align-items-center">
+                <div class="row">
                     <div class="col">
-                        <h3 class="mb-0">Rekaman Pendaftaran</h3>
+                        <h3 class="mb-0">Total: {{ $totalPendaftar }} Pendaftar</h3>
                     </div>
-                    <!--<div class="col text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                    </div>-->
+                    <div class="col">
+                        <div class="row ml-auto">
+                        
+                            <div class="col-auto">
+                                Tampilkan
+                                <div class="dropdown ml-2">
+                                    <a href="#" class="btn btn-default btn-sm dropdown-toggle " data-toggle="dropdown" id="showData">
+                                        {{ (request('load') == 'all') ? 'semua' : request('load') ?? '...'}} data
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="showData">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin', ['load' => 10]) }}">
+                                                10 data
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin', ['load' => 30]) }}">
+                                                30 data
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin', ['load' => 50]) }}">
+                                                50 data
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin', ['load' => 'all']) }}">
+                                                semua data
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                per halaman 
+                            </div>
+
+                            <div class="col-auto">
+                                <a href="{{ route('export-excel', ['pendaftar' => request('pendaftar') ?? null])  }}" class="btn btn-success btn-sm" target="_blank">Export ke .xlsx</a>
+                            </div>
+
+                        </div>
+                    
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -141,8 +180,9 @@
             </div>
         </div>        
         
-        {{ $personals->appends(['load' => $load])->links() }}
-        
+        @if ($load != 'all')
+        {{ $personals->appends(['load' => $load, 'pendaftar' => request('pendaftar') ?? ''])->links() }}
+        @endif
         <!-- Footer -->
         <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">

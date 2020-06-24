@@ -44,7 +44,7 @@ class AdminDashboard
     private function fetchAll($jenisKelamin = null)
     {
         if (!is_null($jenisKelamin)) {
-            return Personal::where('jenis_kelamin', $jenisKelamin)->get($load);
+            return Personal::where('jenis_kelamin', $jenisKelamin)->get();
         } else {
             return Personal::all();
         }

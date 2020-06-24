@@ -27,7 +27,8 @@ Route::group([
     'namespace' => 'Admin'
     ], function() {
         Route::get('/', 'AdminController@index')->name('admin');
-        Route::delete('registrant/{id}', 'Admincontroller@destroy')->name('registrant.destroy');
+        Route::delete('/registrant/{id}', 'Admincontroller@destroy')->name('registrant.destroy');
+        Route::get('/export-excel', 'ExportExcelController@exportExcel')->name('export-excel');
 
 });
 
